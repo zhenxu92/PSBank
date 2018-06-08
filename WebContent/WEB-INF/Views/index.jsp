@@ -18,8 +18,8 @@
 					Happiness = A Good Bank Account, A Good Cook and a Good Digestion - Jean
 					</p>
 					
-					<a href="new" class="btn btn-lg btn-success">Register Here</a>
-					<p><br />Existing Users : <a href="/user/login">Login Here</a>
+					<a href="user/new" class="btn btn-lg btn-success">Register Here</a>
+					<p><br />Existing Users : <a href="user/login">Login Here</a>
 				</div>
 			</div>
 		</div>

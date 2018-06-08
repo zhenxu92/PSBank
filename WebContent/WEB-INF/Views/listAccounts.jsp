@@ -12,7 +12,28 @@
 	<div class="container">
 
 		<%@ include file="header.jsp"%>
+		<div class="row">
+			<div class="col-12">
+				<c:url value="/logout" var="logoutUrl" />
 
+				<form action="${logoutUrl}" method="post" id="logoutForm">
+					<input type="hidden" name="${_csrf.parameterName}"
+						value="${_csrf.token}" />
+				</form>
+
+				<script>
+					function formSubmit() {
+						document.getElementById("logoutForm").submit();
+					}
+				</script>
+
+				<p class="display-5">
+					Welcome : ${userName} , <a href="javascript:formSubmit()">
+						Logout</a>
+				</p>
+			</div>
+		</div>
+		
 		<div class="row">
 			<div class="col-12">
 				<a href="<c:url value='/new' />" class="btn btn-lg btn-primary">Add New Account</a>

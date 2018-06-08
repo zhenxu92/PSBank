@@ -6,6 +6,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,9 +15,11 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ps.springmvc.psbankApp.model.Account;
 import com.ps.springmvc.psbankApp.services.AccountService;
@@ -77,6 +81,9 @@ public class AccountController {
 	public String listAccount(Model model) {
 		List<Account> accounts = accountService.getAccounts();
 		model.addAttribute("accounts", accounts);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName(); //get logged in user name
+		model.addAttribute("username", name);
 		return "listAccounts";
 	}
 	
@@ -93,4 +100,15 @@ public class AccountController {
 		accountService.deleteAccount(accountNo);
 		return "redirect:/list";
 	}
+	
+	// use @PathVariable here is because it is not a /link?id=123 type (a link associated
+	// with some values
+	@ResponseBody
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public Account getAccount(@PathVariable("id") Integer accountNo) {
+		System.out.println("Return Account: " + accountNo);
+		Account account = accountService.getAccount(accountNo);
+		return account;
+	}
+
 }
