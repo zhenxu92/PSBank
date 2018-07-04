@@ -28,7 +28,7 @@
 				</script>
 
 				<p class="display-5">
-					Welcome : ${userName} , <a href="javascript:formSubmit()">
+					Welcome : ${username} , <a href="javascript:formSubmit()">
 						Logout</a>
 				</p>
 			</div>

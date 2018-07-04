@@ -28,8 +28,9 @@ public class AccountDAOImpl implements AccountDAO {
 		accountEntity.setDateOfBirth(account.getDateOfBirth());
 		accountEntity.setPsCode(account.getPsCode());
 		try {
+			System.out.println("hit DAO update");
 			Session currentSession = sessionFactory.getCurrentSession();
-			currentSession.save(accountEntity);
+			currentSession.saveOrUpdate(accountEntity);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			saveFlag = false;

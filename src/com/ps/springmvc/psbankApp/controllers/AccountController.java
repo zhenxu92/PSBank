@@ -56,11 +56,12 @@ public class AccountController {
 	public String saveAccount( @Valid @ModelAttribute("account") Account account,
 			BindingResult result, Model model
 			) {
-		if (result.hasErrors())
-			return "account-form";
-		else {
+		if (result.hasErrors()) {
+			System.out.println("error occured");
+			return "account-form";			
+		} else {
 			String message = "";
-			boolean flag =true;
+			boolean flag = true;
 			try {
 			flag= accountService.saveAccount(account);
 			}
@@ -83,6 +84,7 @@ public class AccountController {
 		model.addAttribute("accounts", accounts);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName(); //get logged in user name
+		System.out.println(name);
 		model.addAttribute("username", name);
 		return "listAccounts";
 	}
